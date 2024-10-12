@@ -33,7 +33,7 @@ jobs:
           convert stl_render.png step_render.png -compose Difference -composite diff_result.png
 
       - name: Upload Diff Image
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: image-diff
           path: diff_result.png
