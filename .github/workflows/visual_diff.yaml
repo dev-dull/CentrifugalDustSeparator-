@@ -26,7 +26,7 @@ jobs:
           ls -lah
           # freecadcmd -c "import FreeCAD; import Part; doc = FreeCAD.newDocument(); Part.import('MK2/STL/MK2_bracket-inlet.stl'); doc.recompute(); doc.export('stl_render.png')"
           # freecadcmd -c "import FreeCAD; import Part; doc = FreeCAD.newDocument(); Part.import('path/to/MK2/STL/MK2_bracket-inlet.stl'); doc.recompute(); doc.export('stl_render.png')"
-          FreeCADCmd <<EOF
+          freecadcmd <<EOF
           import FreeCAD
           import FreeCADGui
           import Part
