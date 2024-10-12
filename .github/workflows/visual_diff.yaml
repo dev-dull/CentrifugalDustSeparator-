@@ -1,0 +1,39 @@
+name: Render and Diff
+
+on:
+  push:
+    # branches:
+    #   - main
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install FreeCAD
+        run: |
+          sudo add-apt-repository ppa:freecad-maintainers/freecad-daily
+          sudo apt-get update
+          sudo apt-get install freecad
+
+      - name: Render STL File
+        run: |
+          freecadcmd -c "import FreeCAD; import Part; doc = FreeCAD.newDocument(); Part.import('MK2/STL/MK2_bracket-inlet.stl'); doc.recompute(); doc.saveAs('stl_render.png')"
+
+      - name: Render STEP File
+        run: |
+          freecadcmd -c "import FreeCAD; import Part; doc = FreeCAD.newDocument(); Part.import('MK2/STEP/MK2_bracket-inlet.stp'); doc.recompute(); doc.saveAs('step_render.png')"
+
+      - name: Compare Images
+        run: |
+          sudo apt-get install imagemagick
+          convert stl_render.png step_render.png -compose Difference -composite diff_result.png
+
+      - name: Upload Diff Image
+        uses: actions/upload-artifact@v2
+        with:
+          name: image-diff
+          path: diff_result.png

@@ -1,6 +1,8 @@
 name: Convert STEP to STL
 on:
   push:
+    branches:
+      - disabled
     paths:
       - .github/workflows/update_stls_from_steps.yaml
       - MK2/STEP/*.stp
