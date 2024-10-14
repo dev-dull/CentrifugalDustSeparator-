@@ -1,10 +1,10 @@
-name: Render STL Image
+name: Render STL Image Headlessly
 
 on:
   push:
-  #   branches:
-  #     - main
-  # pull_request:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   render:
@@ -21,6 +21,8 @@ jobs:
 
     - name: Install dependencies
       run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-opengl python3-pyqt5
         pip install trimesh matplotlib
 
     - name: Render STL file
@@ -30,7 +32,7 @@ jobs:
         from mpl_toolkits.mplot3d import Axes3D
 
         # Load the STL file
-        mesh = trimesh.load('MK2/STEP/MK2_bracket-inlet.stp')
+        mesh = trimesh.load('MK2/STL/MK2_bracket-inlet.stl')
 
         # Create a 3D plot
         fig = plt.figure()
